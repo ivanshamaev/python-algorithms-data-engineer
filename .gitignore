@@ -1,0 +1,5 @@
+# Исключить папку с контрольными точками Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Исключить директорию с настройками Jupyter
+.jupyter/
