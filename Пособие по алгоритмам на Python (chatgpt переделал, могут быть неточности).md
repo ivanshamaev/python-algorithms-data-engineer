@@ -200,19 +200,46 @@ tag:
 ```python
 class Array:
     def __init__(self):
+        # Инициализируем пустой массив
         self.data = []
 
-    def insert(self, index, value):
-        self.data.insert(index, value)
-
-    def delete(self, index):
-        del self.data[index]
+    def add(self, value):
+        # Добавляем элемент в конец массива
+        self.data.append(value)
 
     def get(self, index):
-        return self.data[index]
+        # Возвращаем элемент по индексу
+        if 0 <= index < len(self.data):
+            return self.data[index]
+        else:
+            raise IndexError("Index out of bounds")
 
-    def size(self):
+    def remove(self, index):
+        # Удаляем элемент по индексу
+        if 0 <= index < len(self.data):
+            self.data.pop(index)
+        else:
+            raise IndexError("Index out of bounds")
+
+    def length(self):
+        # Возвращаем длину массива
         return len(self.data)
+
+    def __str__(self):
+        # Переопределяем строковое представление объекта
+        return str(self.data)
+
+# Пример использования
+arr = Array()
+arr.add(10)
+arr.add(20)
+arr.add(30)
+
+print(arr)           # [10, 20, 30]
+print(arr.get(1))    # 20
+arr.remove(1)
+print(arr)           # [10, 30]
+print(arr.length())  # 2
 ```
 
 
@@ -236,17 +263,21 @@ class Array:
 
 ```python
 class Node:
-    def __init__(self, value):
+    def __init__(self, value=None):
+        # Узел хранит значение и ссылку на следующий узел
         self.value = value
         self.next = None
 
+
 class LinkedList:
     def __init__(self):
+        # Начало списка (головной узел)
         self.head = None
 
-    def insert(self, value):
+    def append(self, value):
+        # Добавление элемента в конец списка
         new_node = Node(value)
-        if not self.head:
+        if self.head is None:
             self.head = new_node
         else:
             current = self.head
@@ -254,26 +285,71 @@ class LinkedList:
                 current = current.next
             current.next = new_node
 
+    def prepend(self, value):
+        # Добавление элемента в начало списка
+        new_node = Node(value)
+        new_node.next = self.head
+        self.head = new_node
+
     def delete(self, value):
-        if not self.head:
+        # Удаление элемента с указанным значением
+        if self.head is None:
             return
+        
         if self.head.value == value:
             self.head = self.head.next
-        else:
-            current = self.head
-            while current.next:
-                if current.next.value == value:
-                    current.next = current.next.next
-                    return
-                current = current.next
+            return
+        
+        current = self.head
+        while current.next and current.next.value != value:
+            current = current.next
+        
+        if current.next is None:
+            return
+        current.next = current.next.next
 
-    def search(self, value):
+    def find(self, value):
+        # Поиск элемента по значению
         current = self.head
         while current:
             if current.value == value:
                 return True
             current = current.next
         return False
+
+    def display(self):
+        # Отображение всех элементов списка
+        elements = []
+        current = self.head
+        while current:
+            elements.append(current.value)
+            current = current.next
+        print(elements)
+
+    def length(self):
+        # Вычисление длины списка
+        count = 0
+        current = self.head
+        while current:
+            count += 1
+            current = current.next
+        return count
+
+
+# Пример использования
+ll = LinkedList()
+ll.append(10)
+ll.append(20)
+ll.prepend(5)
+ll.display()        # [5, 10, 20]
+
+print(ll.length())  # 3
+
+ll.delete(10)
+ll.display()        # [5, 20]
+
+print(ll.find(20))  # True
+print(ll.find(10))  # False
 ```
 
 #### 2.2.3. Стек (Stack)
@@ -295,26 +371,54 @@ class LinkedList:
 ```python
 class Stack:
     def __init__(self):
+        # Инициализация пустого стека
         self.stack = []
 
     def push(self, value):
+        # Добавляем элемент в верхушку стека
         self.stack.append(value)
 
     def pop(self):
-        if self.is_empty():
-            return None
-        return self.stack.pop()
+        # Удаляем и возвращаем верхний элемент стека
+        if not self.is_empty():
+            return self.stack.pop()
+        else:
+            raise IndexError("Pop from empty stack")
 
     def peek(self):
-        if self.is_empty():
-            return None
-        return self.stack[-1]
+        # Возвращаем верхний элемент стека без его удаления
+        if not self.is_empty():
+            return self.stack[-1]
+        else:
+            raise IndexError("Peek from empty stack")
 
     def is_empty(self):
+        # Проверяем, пуст ли стек
         return len(self.stack) == 0
 
     def size(self):
+        # Возвращаем количество элементов в стеке
         return len(self.stack)
+
+    def __str__(self):
+        # Переопределение метода для удобного вывода
+        return str(self.stack)
+
+
+# Пример использования
+s = Stack()
+s.push(10)
+s.push(20)
+s.push(30)
+
+print(s)             # [10, 20, 30]
+print(s.peek())      # 30
+
+s.pop()
+print(s)             # [10, 20]
+
+print(s.size())      # 2
+print(s.is_empty())  # False
 ```
 
 #### 2.2.4. Очередь (Queue)
@@ -337,26 +441,54 @@ from collections import deque
 
 class Queue:
     def __init__(self):
+        # Инициализируем очередь с помощью deque
         self.queue = deque()
 
     def enqueue(self, value):
+        # Добавляем элемент в конец очереди
         self.queue.append(value)
 
     def dequeue(self):
-        if self.is_empty():
-            return None
-        return self.queue.popleft()
+        # Удаляем и возвращаем элемент из начала очереди
+        if not self.is_empty():
+            return self.queue.popleft()
+        else:
+            raise IndexError("Dequeue from empty queue")
 
     def peek(self):
-        if self.is_empty():
-            return None
-        return self.queue[0]
+        # Возвращаем элемент из начала очереди без удаления
+        if not self.is_empty():
+            return self.queue[0]
+        else:
+            raise IndexError("Peek from empty queue")
 
     def is_empty(self):
+        # Проверяем, пуста ли очередь
         return len(self.queue) == 0
 
     def size(self):
+        # Возвращаем количество элементов в очереди
         return len(self.queue)
+
+    def __str__(self):
+        # Переопределяем метод для удобного вывода
+        return str(list(self.queue))
+
+
+# Пример использования
+q = Queue()
+q.enqueue(10)
+q.enqueue(20)
+q.enqueue(30)
+
+print(q)             # [10, 20, 30]
+print(q.peek())      # 10
+
+q.dequeue()
+print(q)             # [20, 30]
+
+print(q.size())      # 2
+print(q.is_empty())  # False
 ```
 
 #### 2.2.5. Дерево (Tree)
@@ -379,33 +511,106 @@ class Queue:
 ```python
 class TreeNode:
     def __init__(self, value):
+        # Узел хранит значение, а также ссылки на левый и правый дочерние узлы
         self.value = value
         self.left = None
         self.right = None
 
+
 class BinaryTree:
     def __init__(self):
+        # Инициализация пустого дерева
         self.root = None
 
     def insert(self, value):
-        if not self.root:
+        # Вставка элемента в бинарное дерево
+        if self.root is None:
             self.root = TreeNode(value)
         else:
             self._insert_recursive(self.root, value)
 
-    def _insert_recursive(self, current, value):
-        if value < current.value:
-            if not current.left:
-                current.left = TreeNode(value)
+    def _insert_recursive(self, current_node, value):
+        # Рекурсивная вставка значения в дерево
+        if value < current_node.value:
+            if current_node.left is None:
+                current_node.left = TreeNode(value)
             else:
-                self._insert_recursive(current.left, value)
+                self._insert_recursive(current_node.left, value)
         else:
-            if not current.right:
-                current.right = TreeNode(value)
+            if current_node.right is None:
+                current_node.right = TreeNode(value)
             else:
-                self._insert_recursive(current.right, value)
+                self._insert_recursive(current_node.right, value)
 
-    # Другие операции, такие как поиск, удаление и обход дерева, также могут быть реализованы.
+    def search(self, value):
+        # Поиск значения в дереве
+        return self._search_recursive(self.root, value)
+
+    def _search_recursive(self, current_node, value):
+        # Рекурсивный поиск значения
+        if current_node is None:
+            return False
+        if current_node.value == value:
+            return True
+        elif value < current_node.value:
+            return self._search_recursive(current_node.left, value)
+        else:
+            return self._search_recursive(current_node.right, value)
+
+    def inorder_traversal(self):
+        # Симметричный (inorder) обход дерева
+        elements = []
+        self._inorder_recursive(self.root, elements)
+        return elements
+
+    def _inorder_recursive(self, current_node, elements):
+        # Рекурсивный симметричный обход
+        if current_node:
+            self._inorder_recursive(current_node.left, elements)
+            elements.append(current_node.value)
+            self._inorder_recursive(current_node.right, elements)
+
+    def preorder_traversal(self):
+        # Прямой (preorder) обход дерева
+        elements = []
+        self._preorder_recursive(self.root, elements)
+        return elements
+
+    def _preorder_recursive(self, current_node, elements):
+        # Рекурсивный прямой обход
+        if current_node:
+            elements.append(current_node.value)
+            self._preorder_recursive(current_node.left, elements)
+            self._preorder_recursive(current_node.right, elements)
+
+    def postorder_traversal(self):
+        # Обратный (postorder) обход дерева
+        elements = []
+        self._postorder_recursive(self.root, elements)
+        return elements
+
+    def _postorder_recursive(self, current_node, elements):
+        # Рекурсивный обратный обход
+        if current_node:
+            self._postorder_recursive(current_node.left, elements)
+            self._postorder_recursive(current_node.right, elements)
+            elements.append(current_node.value)
+
+
+# Пример использования
+bt = BinaryTree()
+bt.insert(10)
+bt.insert(5)
+bt.insert(15)
+bt.insert(3)
+bt.insert(7)
+
+print("Inorder traversal:", bt.inorder_traversal())    # [3, 5, 7, 10, 15]
+print("Preorder traversal:", bt.preorder_traversal())  # [10, 5, 3, 7, 15]
+print("Postorder traversal:", bt.postorder_traversal())# [3, 7, 5, 15, 10]
+
+print("Search 7:", bt.search(7))  # True
+print("Search 12:", bt.search(12)) # False
 ```
 
 #### 2.2.6. Граф (Graph)
