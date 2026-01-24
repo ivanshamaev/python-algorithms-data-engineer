@@ -1,6 +1,6 @@
 | Категория | Задача | Статус |
 |---|---|---|
-| Arrays & Hashing | Contains Duplicate | not-started |
+| Arrays & Hashing | Contains Duplicate | ✅ |
 | Arrays & Hashing | Valid Anagram | not-started |
 | Arrays & Hashing | Two Sum | not-started |
 | Arrays & Hashing | Group Anagrams | not-started |
