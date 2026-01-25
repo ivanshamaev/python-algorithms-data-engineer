@@ -1,7 +1,7 @@
 | Категория | Задача | Статус |
 |---|---|---|
 | Arrays & Hashing | Contains Duplicate | ✅ |
-| Arrays & Hashing | Valid Anagram | not-started |
+| Arrays & Hashing | Valid Anagram | ✅ |
 | Arrays & Hashing | Two Sum | not-started |
 | Arrays & Hashing | Group Anagrams | not-started |
 | Arrays & Hashing | Top K Frequent Elements | not-started |
