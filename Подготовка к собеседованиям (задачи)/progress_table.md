@@ -2,8 +2,8 @@
 |---|---|---|
 | Arrays & Hashing | Contains Duplicate | ✅ |
 | Arrays & Hashing | Valid Anagram | ✅ |
-| Arrays & Hashing | Two Sum | not-started |
-| Arrays & Hashing | Group Anagrams | not-started |
+| Arrays & Hashing | Two Sum | ✅ |
+| Arrays & Hashing | Group Anagrams | ✅ |
 | Arrays & Hashing | Top K Frequent Elements | not-started |
 | Arrays & Hashing | Encode and Decode Strings | not-started |
 | Arrays & Hashing | Longest Consecutive Sequence | not-started |
@@ -12,6 +12,7 @@
 | Two Pointers | 3Sum | not-started |
 | Sorting | QuickSort | ✅ |
 | Sorting | Merge Sort | ✅ |
+| Sorting | Heap Sort | not-started |
 | Sorting | Sorted array of squares | not-started |
 | Hash | (нет явных задач в папке) | not-started |
 | Stacks | Valid Parentheses | not-started |
